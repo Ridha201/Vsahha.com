@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersManagmentController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,8 @@ use App\Http\Controllers\UsersManagmentController;
 |
 */
 
-Route::get('/', function () {
-    return view('tabs');
+Route::get('/welcome', function () {
+    return view('welcome');
 });
 Route::get('/addcustomer', function () {
     return view('add-customer');
@@ -29,9 +31,9 @@ Route::get('/', function () {
 
 
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
 
 Route::post('/add-customer', [App\Http\Controllers\UsersManagmentController::class, 'addCustomer'])->name('add-customer');
 Route::get('/display-customers/{role?}', [UsersManagmentController::class, 'displayCustomers'])->name('customerslist');
@@ -41,3 +43,19 @@ Route::post('/update-user', [UsersManagmentController::class, 'updateUser'])->na
 Route::get('/delete-user/{id}', [UsersManagmentController::class, 'deleteUser'])->name('delete-user');
 
 Route::get('/filter-customers/{role?}', [UsersManagmentController::class, 'filterCustomers'])->name('filter-customers');
+
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
