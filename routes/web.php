@@ -19,10 +19,7 @@ use App\Http\Controllers\DashboardController;
 Route::get('/welcome', function () {
     return view('welcome');
 });
-Route::get('/addcustomer', function () {
-    return view('add-customer');
-})->name('addcustomer');
-
+Route::get('/addcustomer', [UsersManagmentController::class, 'index'])->name('addcustomer');
 
 
 Route::get('/', function () {
@@ -36,13 +33,15 @@ Route::get('/', function () {
 
 
 Route::post('/add-customer', [App\Http\Controllers\UsersManagmentController::class, 'addCustomer'])->name('add-customer');
-Route::get('/display-customers/{role?}', [UsersManagmentController::class, 'displayCustomers'])->name('customerslist');
+Route::get('/display-customers', [UsersManagmentController::class, 'displayCustomers'])->name('customerslist');
+
 
 Route::post('/update-user', [UsersManagmentController::class, 'updateUser'])->name('update-user');
 
 Route::get('/delete-user/{id}', [UsersManagmentController::class, 'deleteUser'])->name('delete-user');
 
 Route::get('/filter-customers/{role?}', [UsersManagmentController::class, 'filterCustomers'])->name('filter-customers');
+
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
