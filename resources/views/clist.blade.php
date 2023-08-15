@@ -243,6 +243,7 @@
                   </div>
                   <!-- /.modal-dialog -->
                </div>
+
                <!-- /.modal -->
                <!-- Modal -->    
                <!-- Customer Modal2 -->
@@ -276,6 +277,7 @@
                   </div>
                   <!-- /.modal-dialog -->
                </div>
+
                <!-- /.modal -->
             </section>
             <div id="paginationResults" class="table-responsive"></div>

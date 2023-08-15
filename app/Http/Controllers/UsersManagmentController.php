@@ -48,14 +48,14 @@ public function filterCustomers($role = null)
         });
     }
 
-    $customers = $query->with('role')->paginate(2);
+    $customers = $query->with('role')->paginate(1);
 
     $paginationLinks = [
         'prev_page_url' => $customers->previousPageUrl(),
         'next_page_url' => $customers->nextPageUrl(),
         'current_page' => $customers->currentPage(),
         'last_page' => $customers->lastPage(),
-        'url' => $customers->url($customers->currentPage()), // Correct URL generation here
+        'url' => $customers->url($customers->currentPage()), 
     ];
 
     return response()->json([

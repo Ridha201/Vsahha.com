@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersManagmentController;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,3 +42,13 @@ Route::post('/update-user', [UsersManagmentController::class, 'updateUser'])->na
 Route::get('/delete-user/{id}', [UsersManagmentController::class, 'deleteUser'])->name('delete-user');
 
 Route::get('/filter-customers/{role?}', [UsersManagmentController::class, 'filterCustomers'])->name('filter-customers');
+
+//appointment Routes : 
+
+Route::get('/doctor-appointments', [AppointmentController::class, 'appointments'])->name('doctor-appointments');
+
+Route::get('/confirm-appointment/{id}', [AppointmentController::class, 'confirm'])->name('confirm-appointment');
+
+
+Route::get('/reject-appointment/{id}', [AppointmentController::class, 'reject'])->name('reject-appointment');
+
