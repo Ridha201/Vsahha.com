@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Role;
+
 
 class AuthController extends Controller
 {
@@ -31,5 +36,34 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
+
+    public function showRegistrationForm()
+{
+    return view('auth.register');
+}
+
+public function register(Request $request)
+{
+    $this->validate($request, [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
+
+    $role = Role::where('name', $request->role)->first();
+
+    
+
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role_id' => $role->id, 
+    ]);
+
+    Auth::login($user);
+
+    return redirect()->route('dashboard'); // Redirect to the dashboard or any other page
+}
 
 }

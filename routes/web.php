@@ -43,6 +43,8 @@ Route::get('/delete-user/{id}', [UsersManagmentController::class, 'deleteUser'])
 Route::get('/filter-customers/{role?}', [UsersManagmentController::class, 'filterCustomers'])->name('filter-customers');
 
 
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register2', [AuthController::class, 'register'])->name('register2');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

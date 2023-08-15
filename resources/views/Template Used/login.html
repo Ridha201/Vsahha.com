@@ -43,11 +43,10 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form  id="loginForm" novalidate method="POST" action="{{ route('login') }}">
-                            @csrf
+                        <form action="http://thememinister.com/crm/index.html" id="loginForm" novalidate>
                             <div class="form-group">
-                                <label class="control-label" for="username">Email</label>
-                                <input type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="email" id="username" class="form-control">
+                                <label class="control-label" for="username">Username</label>
+                                <input type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
                                 <span class="help-block small">Your unique username to app</span>
                             </div>
                             <div class="form-group">
@@ -56,7 +55,8 @@
                                 <span class="help-block small">Your strong password</span>
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-add">Login</button>
+                                <button class="btn btn-add">Login</button>
+                                <a class="btn btn-warning" href="register.html">Register</a>
                             </div>
                         </form>
                         </div>
