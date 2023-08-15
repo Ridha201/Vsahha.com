@@ -51,12 +51,24 @@
                               
                               <div class="form-group">
                                  <label>Role</label>
-                                 <select class="form-control" name="role">
+                                 <select class="form-control" name="role" id="roleSelect">
+                                 <option value="">Select A Role</option>
+                                 @foreach($roles as $role)
+                                     <option value="{{$role->name}}">{{$role->name}}</option>
                                     
-                                    <option>Médecin</option>
-                                    <option>Patient</option>
-                                    <option>Administrateur</option>
+                                 @endforeach
+                                     <option value="New Role">New Role</option> <!-- Add the new option -->
+                                    
                                  </select>
+                             </div>
+                              <div class="form-group" id="newRoleInput" style="display: none;">
+                                 <label>New Role</label>
+                                 <input type="text" class="form-control" name="new_role">
+                             </div>
+                              
+                              <div class="form-group" id="role-description" style="display: none;">
+                                 <label>Role Description</label>
+                                 <textarea id="rold-description" class="form-control" placeholder="Enter Description"  name="description" rows="4" cols="50"></textarea>
                               </div>
                               <div class="reset-button">
                                  <button  type="submit" class="btn btn-warning">Reset</button>
@@ -72,3 +84,28 @@
             <!-- /.content -->
          </div>
 @endsection
+
+<script>
+   
+   
+
+   document.addEventListener('DOMContentLoaded', function() {
+       const roleSelect = document.getElementById('roleSelect');
+       const newRoleInput = document.getElementById('newRoleInput');
+       const roleDescription = document.getElementById('role-description');
+
+       roleSelect.addEventListener('change', function() {
+           if (roleSelect.value === 'New Role') {
+               newRoleInput.style.display = 'block';
+               roleDescription.style.display = 'block'; 
+               newRoleInput.querySelector('input').setAttribute('required', 'required');
+               roleDescriptionInput.setAttribute('required', 'required');
+           } else {
+               newRoleInput.style.display = 'none';
+               roleDescription.style.display = 'none'; 
+               newRoleInput.querySelector('input').removeAttribute('required');
+               roleDescriptionInput.removeAttribute('required');
+           }
+       });
+   });
+</script>

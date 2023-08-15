@@ -4,6 +4,9 @@ use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersManagmentController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,13 +18,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('tabs');
+Route::get('/welcome', function () {
+    return view('welcome');
 });
-Route::get('/addcustomer', function () {
-    return view('add-customer');
-})->name('addcustomer');
-
+Route::get('/addcustomer', [UsersManagmentController::class, 'index'])->name('addcustomer');
 
 
 Route::get('/', function () {
@@ -30,18 +30,20 @@ Route::get('/', function () {
 
 
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
 
 Route::post('/add-customer', [App\Http\Controllers\UsersManagmentController::class, 'addCustomer'])->name('add-customer');
-Route::get('/display-customers/{role?}', [UsersManagmentController::class, 'displayCustomers'])->name('customerslist');
+Route::get('/display-customers', [UsersManagmentController::class, 'displayCustomers'])->name('customerslist');
+
 
 Route::post('/update-user', [UsersManagmentController::class, 'updateUser'])->name('update-user');
 
 Route::get('/delete-user/{id}', [UsersManagmentController::class, 'deleteUser'])->name('delete-user');
 
 Route::get('/filter-customers/{role?}', [UsersManagmentController::class, 'filterCustomers'])->name('filter-customers');
+
 
 //appointment Routes : 
 
@@ -51,4 +53,19 @@ Route::get('/confirm-appointment/{id}', [AppointmentController::class, 'confirm'
 
 
 Route::get('/reject-appointment/{id}', [AppointmentController::class, 'reject'])->name('reject-appointment');
+
+
+
+
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

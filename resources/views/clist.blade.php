@@ -1,5 +1,7 @@
 @extends('theme')
 @section('content')
+
+
          <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -88,95 +90,21 @@
                               <label class="control-label">Filter By Role : </label>
                               <select id="roleFilter" style="height: 27px; padding: 2px 12px ; font-size: 14px; border-radius: 4px; " onchange="applyRoleFilter()">
                                   <option value="">All Roles</option>
-                                  <option value="Médecin">Médecin</option>
-                                  <option value="Patient">Patient</option>
-                                  <option value="Administrateur">Administrateur</option>
+                                  @foreach($roles as $role)
+                                  <option value="{{$role->name}}">{{$role->name}}</option>
+                                  @endforeach
                               </select>
                           </div>
                           
                            <div class="table-responsive" id="users-table">
                               <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
-                                 <thead>
-                                   
-                                        
-                                    
-                                    <tr class="info">                         
-                                       <th>Customer Name</th>                       
-                                       <th>Email</th>    
-                                       <th>Role</th>
-                                       <th>Join</th>  
-                                       <th>Action</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    @foreach ($customers as $customer)
-                                    <tr>
-                                       <td>{{$customer->name}}</td>
-                                       <td>{{$customer->email}}</td>
-                                       <td>{{$customer->role->name}}</td>
-                                       <td>{{$customer->created_at}}</td>
-                                       <td>
-                                          <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#customer1"><i class="fa fa-pencil"></i></button>
-                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2"><i class="fa fa-trash-o"></i> </button>
-                                       </td>
-                                    </tr>
-                                    
-                                    
-                                    @endforeach
-                                 </tbody>
-                                 
                               </table>
-                              
-                              <nav aria-label="Page navigation example" class="text-center">
-                                 <ul class="pagination">
-                                   @if ($customers->onFirstPage())
-                                     <li class="page-item disabled">
-                                       <span class="page-link" aria-label="Previous">
-                                         <span aria-hidden="true">&laquo;</span>
-                                         <span class="sr-only">Previous</span>
-                                       </span>
-                                     </li>
-                                   @else
-                                     <li class="page-item">
-                                       <a class="page-link" href="{{ $customers->previousPageUrl() }}" aria-label="Previous">
-                                         <span aria-hidden="true">&laquo;</span>
-                                         <span class="sr-only">Previous</span>
-                                       </a>
-                                     </li>
-                                   @endif
-                               
-                                   @foreach ($customers->getUrlRange(1, $customers->lastPage()) as $page => $url)
-                                     @if ($page == $customers->currentPage())
-                                       <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                                     @else
-                                       <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                                     @endif
-                                   @endforeach
-                               
-                                   @if ($customers->hasMorePages())
-                                     <li class="page-item">
-                                       <a class="page-link" href="{{ $customers->nextPageUrl() }}" aria-label="Next">
-                                         <span aria-hidden="true">&raquo;</span>
-                                         <span class="sr-only">Next</span>
-                                       </a>
-                                     </li>
-                                   @else
-                                     <li class="page-item disabled">
-                                       <span class="page-link" aria-label="Next">
-                                         <span aria-hidden="true">&raquo;</span>
-                                         <span class="sr-only">Next</span>
-                                       </span>
-                                     </li>
-                                   @endif
-                                 </ul>
-                               </nav>
-                             
-                             
-                             
-                             
-                             
-                             
                            </div>
+
+                           <div id="reloadIcon" style="display: none;">
+                              <i class="fa fa-refresh fa-spin"></i>
+                          </div>
+
                            
                         </div>
                      </div>
@@ -196,8 +124,12 @@
                                  <form class="form-horizontal" method="POST" action="{{route('update-user')}}">
                                     @csrf
                                     <fieldset>
+                                       @foreach ($customers as $customer)
+                                       <input type="hidden" name="id" value="{{$customer->id}}">
+                                           
+                                       @endforeach
 
-                                        <input type="hidden" name="id" value="{{$customer->id}}">
+                                        
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Name:</label>
@@ -214,17 +146,27 @@
                                        
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Role</label>
-                                          <select class="form-control" name="role">
+                                          <select class="form-control" name="role" id="roleSelect">
                                              <option>Select a Role</option>
-                                             <option>Médecin</option>
-                                             <option>Patient</option>
-                                             <option>Administrateur</option>
+                                             @foreach($roles as $role)
+                                             <option value="{{$role->name}}">{{$role->name}}</option>
+                                             @endforeach
+                                             <option value="New Role">New Role</option> <!-- Add the new option -->
                                           </select>
                                        </div>
-
+                                       
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Password:</label>
                                           <input type="password" placeholder="Password" class="form-control" name="password">
+                                       </div>
+                                       <div class="col-md-6 form-group" id="newRoleInput"  style="display: none;">
+                                          <label>New Role</label>
+                                          <input type="text" class="form-control" name="new_role">
+                                      </div>
+                                       
+                                       <div class="col-md-6 form-group" id="role-description" style="display: none;" >
+                                          <label>Role Description</label>
+                                          <textarea id="rold-description" class="form-control" placeholder="Enter Description"  name="description" rows="4" cols="50"></textarea>
                                        </div>
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
@@ -260,7 +202,7 @@
                                  <form class="form-horizontal">
                                     <fieldset>
                                        <div class="col-md-12 form-group user-form-group">
-                                          <label class="control-label">Delete User</label>
+                                          <label class="control-label">Are you sure you want to Delete this User ?</label>
                                           <div class="pull-right">
                                              <button type="button" data-dismiss="modal" class="btn btn-danger btn-sm">NO</button>
                                              <a href="/delete-user/{{$customer->id}}"  class="btn btn-add btn-sm">YES</a>
@@ -284,21 +226,32 @@
             <!-- /.content -->
          </div>
          <!-- /.content-wrapper -->
+         
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+    function showReloadIcon() {
+        document.getElementById('reloadIcon').style.display = 'block';
+    }
+
+    function hideReloadIcon() {
+        document.getElementById('reloadIcon').style.display = 'none';
+    }
 function applyRoleFilter(page) {
+   showReloadIcon();
     var selectedRole = document.getElementById('roleFilter').value;
 
-    // Make an AJAX request
+    
     $.ajax({
         url: "{{ route('filter-customers') }}" + (selectedRole ? '/' + selectedRole : ''),
         type: 'GET',
         dataType: 'json',
-        data: { page: page }, // Send the page number to the server
+        data: { page: page }, 
         success: function (data) {
-            displayFilteredResults(data.data); // Use data.data to access the paginated data
-            displayPaginationLinks(data.links); // Display pagination links
+            displayFilteredResults(data.data); 
+            displayPaginationLinks(data.links); 
+            hideReloadIcon();
         },
         error: function (error) {
             console.log('Error:', error);
@@ -306,20 +259,46 @@ function applyRoleFilter(page) {
     });
 }
 
+function displayUsers(page) {
+    
+
+    
+    $.ajax({
+        url: "{{ route('customerslist') }}" ,
+        type: 'GET',
+        dataType: 'json',
+        data: { page: page }, 
+        success: function (data) {
+            displayFilteredResults(data.data); 
+            displayPaginationLinks(data.links); 
+        },
+        error: function (error) {
+            console.log('Error:', error);
+        }
+    });
+
+    
+}
+displayUsers();
+
+
+
+
 
 function displayFilteredResults(customers) {
     var resultsDiv = document.getElementById('users-table');
     var tableHtml = '<table class="table table-bordered table-striped table-hover">';
-    // Add table header
-    tableHtml += '<thead><tr class="info"><th>Customer Name</th><th>Email</th><th>Role</th><th>Join</th><th>Action</th></tr></thead>';
+   
+    tableHtml += '<thead><tr class="info"><th>Customer Name</th><th>Email</th><th>Role</th><th>Description</th><th>Join</th><th>Action</th></tr></thead>';
     tableHtml += '<tbody>';
     
-    // Loop through customers and add rows
+    
     for (var i = 0; i < customers.length; i++) {
         tableHtml += '<tr>';
         tableHtml += '<td>' + customers[i].name + '</td>';
         tableHtml += '<td>' + customers[i].email + '</td>';
         tableHtml += '<td>' + customers[i].role.name + '</td>';
+        tableHtml += '<td>' + customers[i].role.description + '</td>';
         var createdAt = new Date(customers[i].created_at);
         var formattedCreatedAt = createdAt.toLocaleString(); 
         tableHtml += '<td>' + formattedCreatedAt + '</td>';
@@ -380,9 +359,7 @@ if (links.next_page_url) {
     paginationHtml += '</li>';
 }
 
-// ...
 
-// Function to extract page number from URL
 function getPageNumberFromUrl(url) {
     var urlParts = url.split('?');
     if (urlParts.length > 1) {
@@ -395,24 +372,35 @@ function getPageNumberFromUrl(url) {
     paginationHtml += '</ul></nav>';
     paginationLinksDiv.innerHTML = paginationHtml;
 
-    // Attach a click event handler to the pagination links
+    
     $('.pagination-link').on('click', function (e) {
         e.preventDefault();
         var page = $(this).data('page');
-        applyRoleFilter(page); // Trigger AJAX request with the new page number
+        applyRoleFilter(page); 
     });
 }
 
 
 
+</script>
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+       const roleSelect = document.getElementById('roleSelect');
+       const newRoleInput = document.getElementById('newRoleInput');
+       const roleDescription = document.getElementById('role-description');
 
-
-
-
-
-
-
-  
-
-
+       roleSelect.addEventListener('change', function() {
+           if (roleSelect.value === 'New Role') {
+               newRoleInput.style.display = 'block';
+               roleDescription.style.display = 'block'; 
+               newRoleInput.querySelector('input').setAttribute('required', 'required');
+               roleDescriptionInput.setAttribute('required', 'required');
+           } else {
+               newRoleInput.style.display = 'none';
+               roleDescription.style.display = 'none'; 
+               newRoleInput.querySelector('input').removeAttribute('required');
+               roleDescriptionInput.removeAttribute('required');
+           }
+       });
+   });
 </script>
