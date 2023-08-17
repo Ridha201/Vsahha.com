@@ -5,23 +5,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@if(session('confirmed'))
-    <div id="alert-message" class="hidden">
-        <script>
-            $(document).ready(function() {
-                toastr.options = {
-                    "positionClass": "toast-top-center",
-                    "progressBar": true, 
-                    "timeOut": 4000 
-                };
-                toastr.success('{{ session('confirmed') }}');
-                
-               
-            });
-        </script>
-    </div>
- 
-@endif
+
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -73,7 +57,7 @@
 
 
                              
-                                 <td id="appointment-status">
+                                 <td class="appointment-status-{{$app->id}}">
                                     @if($app->status=="confirmed")
                                    <span class="label-custom label label-default">{{$app->status}}</span>
                                    @elseif($app->status=="rejected")
@@ -85,7 +69,7 @@
                                  </td>
 
                                <td>
-                                  <button type="button" class="btn btn-add btn-sm" data-toggle="modal"data-target="#customer{{$app->id}}" ><i class="fa fa-check"></i></button>
+                                  <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#customer{{$app->id}}" ><i class="fa fa-check"></i></button>
                                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reject{{$app->id}}"><i class="fa fa-trash-o"></i> </button>
                                </td>
                             </tr>
@@ -98,8 +82,8 @@
           </div>
        </div>
        <!-- customer Modal1 -->
-      @foreach($appointments as $app)
-       <div class="modal fade" id="reject{{$app->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+      @foreach($appointments as $appreject)
+       <div class="modal fade" id="reject{{$appreject->id}}" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog">
              <div class="modal-content">
                 <div class="modal-header modal-header-primary">
@@ -115,8 +99,8 @@
                                   <label class="control-label">Reject Appointment</label>
                                   <div class="pull-right">
                                      <button type="button" class="btn btn-danger btn-sm">NO</button>
-                                     <a href="reject-appointment/{{$app->id}}" class="btn btn-add btn-sm">YES</a>
-                                  </div>
+                                     <a   data-appid="{{$appreject->id}}" data-dismiss="modal"  class="btn btn-add btn-sm reject-button" >YES</a>
+                                    </div>
                                </div>
                             </fieldset>
                          </form>
@@ -124,7 +108,7 @@
                    </div>
                 </div>
                 <div class="modal-footer">
-                   <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                   <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" >Close</button>
                 </div>
              </div>
              <!-- /.modal-content -->
@@ -181,41 +165,73 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
 <script>
    $(document).ready(function() {
+      $('.confirm-button').on('click', function() {
+          var appId = $(this).data('appid');
+          var status = $('.appointment-status-' + appId); 
+          confirmAppointment(appId, status);
+      });
+   
+      function confirmAppointment(appId, status) {
+          var confirmed = '<span class="label-custom label label-default">confirmed</span>';
+   
+          $.ajax({
+    type: 'GET',
+    url: '{{ route("confirm-appointment", ["id" => "__ID__"]) }}'.replace('__ID__', appId),
+    success: function(response) {
+        console.log('Appointment confirmed successfully.');
+        status.empty();
+        status.html(confirmed);
+        
+        toastr.options = {
+            "positionClass": "toast-top-center",
+            "progressBar": true, 
+            "timeOut": 1000 
+        };
+        toastr.success('Appointment confirmed successfully.');
+    },
+    error: function(xhr, status, error) {
+        console.error('Error confirming appointment:', error);
+    }
+});
 
-      const status = document.getElementById('appointment-status');
-
-      var confirmed = '<span class="label-custom label label-default">Confirmed</span>'
-    
-       $('.confirm-button').on('click', function() {
-           var appId = $(this).data('appid');
-           confirmAppointment(appId);
-           $("appointment-status").empty();       
-               status.innerHTML = confirmed;
-       });
-       
-       
-
-       function confirmAppointment(appId) {
-           $.ajax({
-               type: 'GET',
-               url: '{{ route("confirm-appointment", ["id" => "__ID__"]) }}'.replace('__ID__', appId),
-               success: function(response) {
-                   console.log('Appointment confirmed successfully.');
-                  
-
-               },
-               error: function(xhr, status, error) {
-                   
-                   console.error('Error confirming appointment:', error);
-               }
-           });
-       }
+      }
    });
+</script>
+<script>
+   $(document).ready(function() {
+      $('.reject-button').on('click', function() {
+          var appId = $(this).data('appid');
+          var status = $('.appointment-status-' + appId); 
+          confirmAppointment(appId, status);
+      });
+   
+      function confirmAppointment(appId, status) {
+          var rejected = '<span class="label-danger label label-default">rejected</span>';
+   
+          $.ajax({
+              type: 'GET',
+              url: '{{ route("reject-appointment", ["id" => "__ID__"]) }}'.replace('__ID__', appId),
+              success: function(response) {
+                  console.log('Appointment rejected successfully.');
+                  status.empty();
+                  status.html(rejected);
+                  
+                  toastr.options = {
+            "positionClass": "toast-top-center",
+            "progressBar": true, 
+            "timeOut": 1000 ,
 
+        };
+        toastr.success('Appointment rejected successfully.');
+                  
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error rejected appointment:', error);
+              }
+          });
+      }
+   });
    </script>
-
-
-
+   

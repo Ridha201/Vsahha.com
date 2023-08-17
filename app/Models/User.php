@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 use App\Models\appointment;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -37,6 +36,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -59,18 +59,12 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
+
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
     }
-    protected function create(array $data)
-{
-    
-    return User::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => bcrypt($data['password']),
-    ]);
-}
+   
 
 }
+

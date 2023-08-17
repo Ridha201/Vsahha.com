@@ -42,7 +42,8 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form  id="loginForm" novalidate  method="POST" action="{{ route('register2') }}">
+                        <form id="loginForm" novalidate  method="POST" action="{{ route('register2') }}">
+                            @csrf
                             <div class="row">
                                 <div class="form-group col-lg-6">
                                     <label>Username</label>

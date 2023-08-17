@@ -18,8 +18,8 @@ class CreateDoctorSchedulesTable extends Migration
             $table->unsignedBigInteger('doctor_id'); 
             $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
             $table->string("day");
-            $table->time("time_from");
-            $table->time("time_to");
+            $table->time("time_from")->nullable();
+            $table->time("time_to")->nullable();
             $table->timestamps();
         });
     }

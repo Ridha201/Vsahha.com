@@ -36,6 +36,7 @@ $time = $dt->format('G:i:s');
         return DoctorSchedule::where('doctor_id', $doctorId)
             ->where('time_to', '>=', $time) 
             ->where('time_from', '<=', $time)
+            ->where("day","=",$day)
             ->exists();
     }
 

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\appointment;
 use App\Rules\AppointementInRange;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
 class AppointmentController extends Controller
 {
 
@@ -59,9 +59,26 @@ public function reject($id){
 
     $app->save();
 
-    return redirect()->back()->with("rejected","appointment rejected successfully ");
+    return redirect()->back()->with("rejected","appointment rejected successfully ","status",$app->status);
 
 
+}
+
+
+public function testEmail()
+{
+    $appointment = Appointment::first(); 
+
+    $data = [
+        'appointment' => $appointment,
+    ];
+
+    Mail::send('emails.appointment-reminder', $data, function ($message) use ($appointment) {
+        $message->to("yacinejmaiel@gmail.com")
+                ->subject('Test Appointment Reminder');
+    });
+
+    return "Test email sent!";
 }
 
 

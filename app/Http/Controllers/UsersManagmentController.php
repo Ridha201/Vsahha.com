@@ -44,7 +44,9 @@ class UsersManagmentController extends Controller{
 
 public function displayCustomers()
 {
-    $customers = User::with('role')->paginate(1);
+
+    $customers = User::with('role')->paginate(2);
+
     $roles = Role::all();
 
     $paginationLinks = [
