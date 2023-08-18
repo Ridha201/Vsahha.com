@@ -2,7 +2,31 @@
 @section('content')
 
 
+<style> 
 
+.paginate_button{
+
+   border-color: #009688 !important;
+
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+
+   color :#009688 !important ;
+   margin-top: 13px !important;
+    margin-bottom: 13px !important ;
+}
+.current{
+   background-color: aquamarine ! important;
+
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+
+   background :#009688 !important ;
+
+}
+
+</style>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -26,7 +50,7 @@
     <section class="content">
        <div class="row">
           <div class="col-sm-12">
-             <div class="panel panel-bd ">
+             <div class="panel panel-bd lobidrag">
                 <div class="panel-heading">
                    <div class="btn-group" >
                       <a href="#">
@@ -35,7 +59,7 @@
                    </div>
                 </div>
                   
-                 
+                 <div class="container" style="margin-top: 10px">
                
                   <table id="exemple" class="table table-bordered table-striped table-hover">
                      <thead>
