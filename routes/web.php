@@ -49,6 +49,7 @@ Route::get('/test-email', [AppointmentController::class,'testEmail']);
 
 
 //appointment Routes : 
+Route::get('/test', [AppointmentController::class, 'appointments2'])->name('doctor-appointments');
 
 Route::get('/doctor-appointments', [AppointmentController::class, 'appointments'])->name('doctor-appointments');
 

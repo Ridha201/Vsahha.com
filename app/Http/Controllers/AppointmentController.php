@@ -39,6 +39,9 @@ public function appointments(){
     return view('doctors.list-appointments',compact('appointments'));
 }
 
+
+
+
 public function confirm($id){
 
     $app=appointment::find($id);

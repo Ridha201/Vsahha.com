@@ -1,6 +1,10 @@
 @extends('theme')
 @section('content')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -22,65 +26,63 @@
     <section class="content">
        <div class="row">
           <div class="col-sm-12">
-             <div class="panel panel-bd lobidrag">
+             <div class="panel panel-bd ">
                 <div class="panel-heading">
-                   <div class="btn-group" id="buttonexport">
+                   <div class="btn-group" >
                       <a href="#">
                          <h4>Appointment List</h4>
                       </a>
                    </div>
                 </div>
-                <div class="panel-body">
+                  
+                 
                
-                   <div class="table-responsive">
-                      <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
-                         <thead>
-                            <tr class="info">
+                  <table id="exemple" class="table table-bordered table-striped table-hover">
+                     <thead>
+                         <tr class="info">
+                             <th>Schedule</th>
+                             <th>Patient</th>
+                             <th>Status</th>
+                             <th>Action</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         @foreach($appointments as $app)
+                         <tr>
                             
-                               <th>Schedule	</th>
-                               <th>Patient</th>
-                               <th>Status</th>
-                               <th>Action</th>
-                            </tr>
-                         </thead>
-                         <tbody>
-                            @foreach($appointments as $app)
-                            <tr>
-                               
-                               
-                                <td>{{strtoupper( \carbon\Carbon::parse($app->appointment_time)->translatedFormat('l M j, Y h:i a') )}}</td>
-                                
-                                <td>{{$app->user->name}}</td>
+                            
+                             <td>{{strtoupper( \carbon\Carbon::parse($app->appointment_time)->translatedFormat('l M j, Y h:i a') )}}</td>
                              
-
-
-
-
-                             
-                                 <td class="appointment-status-{{$app->id}}">
-                                    @if($app->status=="confirmed")
-                                   <span class="label-custom label label-default">{{$app->status}}</span>
-                                   @elseif($app->status=="rejected")
-                                   <span class="label-danger label label-default">{{$app->status}}</span>
-                                   @elseif($app->status=="pending")
-                                   <span class="label-warning label label-default">{{$app->status}}</span>
-                                     @endif
-    
-                                 </td>
-
-                               <td>
-                                  <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#customer{{$app->id}}" ><i class="fa fa-check"></i></button>
-                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reject{{$app->id}}"><i class="fa fa-trash-o"></i> </button>
-                               </td>
-                            </tr>
-                           @endforeach
-                         </tbody>
-                      </table>
-                   </div>
+                             <td>{{$app->user->name}}</td>
+                          
+                 
+                 
+                 
+                 
+                          
+                              <td class="appointment-status-{{$app->id}}">
+                                 @if($app->status=="confirmed")
+                                <span class="label-custom label label-default">{{$app->status}}</span>
+                                @elseif($app->status=="rejected")
+                                <span class="label-danger label label-default">{{$app->status}}</span>
+                                @elseif($app->status=="pending")
+                                <span class="label-warning label label-default">{{$app->status}}</span>
+                                  @endif
+                 
+                              </td>
+                 
+                            <td>
+                               <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#customer{{$app->id}}" ><i class="fa fa-check"></i></button>
+                               <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reject{{$app->id}}"><i class="fa fa-trash-o"></i> </button>
+                            </td>
+                         </tr>
+                        @endforeach
+                     </tbody>
+                 </table>
                 </div>
              </div>
           </div>
-       </div>
+       
        <!-- customer Modal1 -->
       @foreach($appointments as $appreject)
        <div class="modal fade" id="reject{{$appreject->id}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -165,6 +167,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
 <script>
    $(document).ready(function() {
       $('.confirm-button').on('click', function() {
@@ -234,4 +237,6 @@
       }
    });
    </script>
+
+   
    

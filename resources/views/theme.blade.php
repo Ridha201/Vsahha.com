@@ -11,8 +11,12 @@
       <link rel="shortcut icon" href="assets/dist/img/ico/favicon.png" type="image/x-icon">
       <!-- Start Global Mandatory Style
          =====================================================================-->
+         <script src="https://code.jquery.com/jquery-3.7.0.js" type="text/javascript"></script>
+
+      <link href="https://cdn.datatables.net/1.13.6/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
+      <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
       <!-- jquery-ui css -->
-      <link href="assets/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+      {{-- <link href="assets/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"/> --}}
       <!-- Bootstrap -->
       <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
       <!-- Bootstrap rtl -->
@@ -40,9 +44,9 @@
    </head>
    <body class="hold-transition sidebar-mini">
    <!--preloader-->
-      <div id="preloader">
+      {{-- <div id="preloader">
          <div id="status"></div>
-      </div>
+      </div> --}}
       <!-- Site wrapper -->
       <div class="wrapper">
          <header class="main-header">
@@ -687,9 +691,8 @@
       <!-- Start Core Plugins
          =====================================================================-->
       <!-- jQuery -->
-      <script src="assets/plugins/jQuery/jquery-1.12.4.min.js" type="text/javascript"></script>
       <!-- jquery-ui --> 
-      <script src="assets/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+      {{-- <script src="assets/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script> --}}
       <!-- Bootstrap -->
       <script src="assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
       <!-- lobipanel -->
@@ -697,7 +700,7 @@
       <!-- Pace js -->
       <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
       <!-- SlimScroll -->
-      <script src="assets/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+      {{-- <script src="assets/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script> --}}
       <!-- FastClick -->
       <script src="assets/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
       <!-- CRMadmin frame -->
@@ -710,6 +713,11 @@
       <script src="assets/dist/js/dashboard.js" type="text/javascript"></script>
       <!-- End Theme label Script
          =====================================================================-->
+         <script>
+            $(document).ready(function () {
+                $('#exemple').DataTable();
+            });
+        </script>
    </body>
 
 <!-- Mirrored from thememinister.com/crm/add-customer.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 10 Aug 2023 11:55:35 GMT -->

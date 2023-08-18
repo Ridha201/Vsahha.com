@@ -59,9 +59,12 @@
                             </div>
                         </div>
                         <hr>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+
                         <button type="submit" class="btn btn-primary btn-sm col-md-3 mr-2">Save</button>
                         <button type="button" id="reset-button" class="btn btn-secondary btn-sm col-md-3">Reset</button>
-
+                            <div class="col-md-2"></div>
                     </div>
                 </form>
                 
