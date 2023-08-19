@@ -93,18 +93,23 @@ $(document).ready(function() {
             data: formData,
             success: function(response) {
                 toastr.options = {
-            "positionClass": "toast-top-center",
-            "progressBar": true, 
-            "timeOut": 1000 
-        };
-        toastr.success('Schedule updated successfully.');
+                    "positionClass": "toast-top-center",
+                    "progressBar": true,
+                    "timeOut": 1000
+                };
+                toastr.success('Schedule updated successfully.');
             },
             error: function(xhr, status, error) {
-                alert('An error occurred while updating the schedule.');
+                toastr.options = {
+                    "positionClass": "toast-top-center",
+                    "progressBar": true,
+                    "timeOut": 1000
+                };
+                console.log("PRRPRPR ===< ",xhr);
+                toastr.error(xhr.responseJSON.error);
             }
         });
     });
-
     $('#reset-button').click(function() {
         $('input[name^="check"]:checked').each(function() {
             var dayId = $(this).val();

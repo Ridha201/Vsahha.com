@@ -17,13 +17,16 @@ class doctorSchedulesController extends Controller
     public function updateschedule(Request $req)
     {
         $days = $req->input('check');
-    
-        if (is_null($days)) {
-            return redirect()->back()->with('error', 'No days selected.');
+        if (is_null($days) || !isset($days) || count($days) == 0) {
+            return response()->json(['error' => 'You must select a day'], 400);
         }
     
         foreach ($days as $day) {
             $schedule = DoctorSchedule::find($day);
+
+            if($req->input("time_to_$day")<$req->input("time_from_$day")){
+                return response()->json(['error' => 'An error occurred'], 500);
+            }
     
             $schedule->time_from = $req->input("time_from_$day");
             $schedule->time_to = $req->input("time_to_$day");
@@ -31,7 +34,8 @@ class doctorSchedulesController extends Controller
             $schedule->save();
         }
     
-        return redirect()->back()->with('success', 'Schedule updated successfully.');
+        return response()->json(['success' => 'Schedule updated successfully'], 200);
+
     }
     
     
