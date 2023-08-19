@@ -1,0 +1,8 @@
+/* Custom pagination style */
+.dataTables_wrapper .dataTables_paginate .pagination {
+    /* Your custom styling here */
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    /* Your custom styling here */
+}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersManagmentController extends Controller{
 
@@ -37,6 +38,9 @@ class UsersManagmentController extends Controller{
     $customer->password = bcrypt($request->password);
     $customer->role_id = $role->id;
     $customer->save();
+    
+
+    
     return redirect()->route('customerslist');
     }
 
@@ -44,7 +48,7 @@ class UsersManagmentController extends Controller{
 
 public function displayCustomers()
 {
-    $customers = User::with('role')->paginate(2);
+    $customers = User::with('role')->paginate(1);
     $roles = Role::all();
 
     $paginationLinks = [
@@ -68,6 +72,15 @@ public function displayCustomers()
         'paginationLinks' => $paginationLinks,
     ]);
 }
+public function search()
+{
+    $customers = User::with('role')->get(); // Retrieve the users
+    
+
+    return response()->json([
+        'data' => $customers, // Return the entire collection
+    ]);
+}
 public function filterCustomers($role = null)
 {
     $query = User::query();
@@ -77,22 +90,15 @@ public function filterCustomers($role = null)
             $q->where('name', $role);
         });
     }
-
-    $customers = $query->with('role')->paginate(2);
-
-    $paginationLinks = [
-        'prev_page_url' => $customers->previousPageUrl(),
-        'next_page_url' => $customers->nextPageUrl(),
-        'current_page' => $customers->currentPage(),
-        'last_page' => $customers->lastPage(),
-        'url' => $customers->url($customers->currentPage()), // Correct URL generation here
-    ];
-
+    
+    $customers = $query->with('role')->get();
     return response()->json([
-        'data' => $customers->items(),
-        'links' => $paginationLinks,
+        'data' => $customers,
+        
     ]);
 }
+
+
 
 public function updateUser(Request $request)
 {
@@ -123,9 +129,9 @@ public function updateUser(Request $request)
 public function deleteUser(Request $request)
 {
     $user = User::findOrFail($request->id);
-    $role = Role::where('id', $user->role_id)->first();
+    
     $user->delete();
-    $role->delete();
+    
 
     return redirect()->route('customerslist');
 }
