@@ -86,11 +86,11 @@
                           
                               <td class="appointment-status-{{$app->id}}">
                                  @if($app->status=="confirmed")
-                                <span class="label-custom label label-default">{{$app->status}}</span>
+                                <span class="label-custom label label-default"> {{$app->status}} </span>
                                 @elseif($app->status=="rejected")
-                                <span class="label-danger label label-default">{{$app->status}}</span>
+                                <span class="label-danger label label-default"> {{$app->status}} </span>
                                 @elseif($app->status=="pending")
-                                <span class="label-warning label label-default">{{$app->status}}</span>
+                                <span class="label-warning label label-default"> {{$app->status}} </span>
                                   @endif
                  
                               </td>
@@ -235,7 +235,7 @@
       });
    
       function confirmAppointment(appId, status) {
-          var rejected = '<span class="label-danger label label-default">rejected</span>';
+          var rejected = '<span class="label-danger label label-default"> rejected </span>';
    
           $.ajax({
               type: 'GET',

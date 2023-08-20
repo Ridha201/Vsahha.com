@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\doctorSchedulesController;
+use Illuminate\Http\Client\Request;
 
 
 
@@ -66,7 +67,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'redirect.role'])->group(function () {
     
-    Route::get('/doctor', [AuthController::class, 'doctor'])->name('Doctor');
+
+    //doctor dashboard
+    Route::get('/doctor', [doctorSchedulesController::class, 'schedules'])->name('Doctor');
 
     // Patient Dashboard
     Route::get('/patient', [AuthController::class, 'patient'])->name('Patient');

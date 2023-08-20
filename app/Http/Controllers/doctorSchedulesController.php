@@ -4,14 +4,25 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DoctorSchedule;
 use Illuminate\Http\Request;
+use App\Models\appointment;
 
 class doctorSchedulesController extends Controller
 {
     public function schedules(){
 
+        $confirmed=appointment::where("status","=","confirmed")->count();
+    $pending=appointment::where("status","=","pending")->count();
+    $rejected=appointment::where("status","=","rejected")->count();
+
+
+    $confirmedPatients = Appointment::where('doctor_id', auth::user()->id)
+        ->where('status', 'confirmed')
+        ->distinct('patient_id')
+        ->count();
+
         $schedules=DoctorSchedule::where("doctor_id","=",auth::user()->id)->get();
 
-        return view("doctors.doctor-schedule",compact('schedules'));
+        return view("doctors.doctor-schedule",compact('schedules',"confirmed","pending","rejected","confirmedPatients"));
     }
 
     public function updateschedule(Request $req)

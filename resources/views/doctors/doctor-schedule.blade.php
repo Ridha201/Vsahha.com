@@ -5,6 +5,62 @@
 
 <div class="content-wrapper">
 
+<div class="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+           <div id="cardbox1">
+              <div class="statistic-box">
+                 <i class="fa fa-user-plus fa-3x"></i>
+                 <div class="counter-number pull-right">
+                    <span class="count-number">{{$confirmedPatients}}</span> 
+                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                    </span>
+                 </div>
+                 <h3> Patients</h3>
+              </div>
+           </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+           <div id="cardbox2">
+              <div class="statistic-box">
+                <i class="fa fa-files-o fa-3x"></i>
+                <div class="counter-number pull-right">
+                    <span class="count-number">{{$pending}}</span> 
+                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                    </span>
+                 </div>
+                 <h3>  Pending Appointment</h3>
+              </div>
+           </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+           <div id="cardbox3">
+              <div class="statistic-box">
+                <i class="fa fa-files-o fa-3x"></i>
+                <div class="counter-number pull-right">
+                    <span class="count-number">{{$confirmed}}</span> 
+                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                    </span>
+                 </div>
+                 <h3>  ConfirmedAppointment</h3>
+              </div>
+           </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+           <div id="cardbox4">
+              <div class="statistic-box">
+                 <i class="fa fa-files-o fa-3x"></i>
+                 <div class="counter-number pull-right">
+                    <span class="count-number">{{$rejected}}</span> 
+                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                    </span>
+                 </div>
+                 <h3> Rejected Appointment</h3>
+              </div>
+           </div>
+        </div>
+     </div>
+
     <section class="content-header">
         <div class="header-icon">
            <i class="fa fa-file-text-o"></i>
@@ -20,7 +76,7 @@
             <div class="panel-heading">
                <div class="btn-group" id="buttonexport">
                   <a href="#">
-                     <h4>Doctor Schedule</h4>
+                     <h4>Doctor <span style="color:#009688"> {{Auth::user()->name}} </span> Schedule</h4>
                   </a>
                </div>
             </div>
@@ -71,9 +127,9 @@
 </div>
 
 </div>
- 
+   
 </section>
-
+</div>
 </div>
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
