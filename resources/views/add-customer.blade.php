@@ -84,7 +84,7 @@
                            name="description" rows="4" cols="50"></textarea>
                      </div>
                      <div class="reset-button">
-                        <button type="submit" class="btn btn-warning">Reset</button>
+                        <button type="button" class="btn btn-warning" id="resetButton">Reset</button>
                         <button type="submit" class="btn btn-success">Save</button>
                      </div>
 
@@ -163,3 +163,21 @@
     });
 });
 </script>
+
+
+<script>
+   $(document).ready(function() {
+       // Function to reset the form fields
+       function resetFormFields() {
+           $('#addCustomerForm')[0].reset();
+           $('#roleSelect').val('');
+           $('#newRoleInput').hide();
+           $('#role-description').hide();
+       }
+   
+       // Attach click event handler to the reset button
+       $('#resetButton').click(function() {
+           resetFormFields();
+       });
+   });
+   </script>

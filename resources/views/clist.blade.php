@@ -7,12 +7,12 @@
 
    .paginate_button{
 
-border-color: #009688 !important;
+border-color: #c6c9c8 !important;
 
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button{
 
-color :#009688 !important ;
+color :#585c5b !important ;
 margin-top: 13px !important;
  margin-bottom: 13px !important ;
 }
@@ -26,6 +26,8 @@ background-color: #009688 ! important;
 background :#009688 !important ;
 
 }
+
+
 </style>
 
 
@@ -58,7 +60,7 @@ background :#009688 !important ;
                   <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
                   <div class="btn-group">
                      <div class="buttonexport" id="buttonlist">
-                        <a class="btn btn-add" href="{{route('addcustomer')}}"> <i class="fa fa-plus"></i> Add Customer
+                        <a class="btn btn-add" href="{{route('addcustomer')}}"> <i class="fa fa-plus"></i> Add User
                         </a>
                      </div>
                      <button class="btn btn-exp btn-sm dropdown-toggle" data-toggle="dropdown"><i
@@ -123,8 +125,8 @@ background :#009688 !important ;
 
                   <div class="text-right" style="    padding-bottom: 6px;">
                      <label class="control-label">Search:</label>
-                     <input type="text" id="searchInput" placeholder="Search for clients..."
-                        style="height: 27px;padding: 2px 2px;font-size: 13px;border-radius: 4px;">
+                     <input type="text" id="searchInput" placeholder="Search for users..."
+                        style="height: 27px;padding: 2px 2px;font-size: 13px;border-radius: 4px; border-width: 1px;">
                      <label class="control-label">Filter By Role : </label>
                      <select id="roleFilter"
                         style="height: 27px; padding: 2px 12px ; font-size: 14px; border-radius: 4px; "
