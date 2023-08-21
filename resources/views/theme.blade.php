@@ -345,15 +345,15 @@
                   </li>
                   <li class="treeview">
                      <a href="#">
-                     <i class="fa fa-users"></i><span>Customers</span>
+                     <i class="fa fa-users"></i><span>Users</span>
                      <span class="pull-right-container">
                      <i class="fa fa-angle-left pull-right"></i>
                      </span>
                      </a>
                      <ul class="treeview-menu">
-                        <li><a href="{{route('addcustomer')}}">Add Customer</a></li>
-                        <li><a href="{{route('customerslist')}}">List</a></li>
-                        <li><a href="group.html">Groups</a></li>
+                        <li><a href="{{route('addcustomer')}}">Add User</a></li>
+                        <li><a href="{{route('customerslist')}}">Users List</a></li>
+                        
                      </ul>
                   </li>
                   <li class="treeview">

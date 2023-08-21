@@ -28,10 +28,7 @@ class UsersManagmentController extends Controller{
     }else {
         $role = Role::where('name','=', $request->role)->first();
     }
-   
 
-
-    
     $customer = new User;
     $customer->name = $request->name;
     $customer->email = $request->email;
@@ -41,7 +38,7 @@ class UsersManagmentController extends Controller{
     
 
     
-    return redirect()->route('customerslist');
+    return response()->json(['message' => 'Customer added successfully'], 200);
     }
 
 
