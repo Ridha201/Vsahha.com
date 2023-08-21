@@ -73,6 +73,7 @@ public function search()
 {
     $customers = User::with('role')->get(); // Retrieve the users
     
+    
 
     return response()->json([
         'data' => $customers, // Return the entire collection
@@ -101,7 +102,10 @@ public function updateUser(Request $request)
 {
     $user = User::findOrFail($request->id);
     $user->name = $request->name;
-    $user->email = $request->email;
+    if ($request->email != $user->email){
+        $user->email = $request->email;
+    }
+    
     if ($request->password) {
         $user->password = bcrypt($request->password);
     }
@@ -118,6 +122,7 @@ public function updateUser(Request $request)
     }else {
         $role = Role::where('name','=', $request->role)->first();
     }
+    $user->role_id = $role->id;
     $user->save();
 
     return redirect()->route('customerslist');

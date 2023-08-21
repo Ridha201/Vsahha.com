@@ -4,11 +4,31 @@
    <style>.dataTables_filter {
       display: none;
    }
+
+   .paginate_button{
+
+border-color: #009688 !important;
+
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+
+color :#009688 !important ;
+margin-top: 13px !important;
+ margin-bottom: 13px !important ;
+}
+.current{
+background-color: #009688 ! important;
+
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+
+background :#009688 !important ;
+
+}
 </style>
 
-<head>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
-</head>
+
 
 
 <div class="content-wrapper">

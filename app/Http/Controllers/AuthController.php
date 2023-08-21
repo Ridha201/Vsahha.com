@@ -90,7 +90,7 @@ public function register(Request $request)
         if ($request->wantsJson()) {
             return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
         } else {
-            return redirect()->route('dashboard'); // Redirect to the dashboard
+            return redirect()->route(Auth::user()->role->name); 
         }
     } catch (ValidationException $e) {
         if ($request->wantsJson()) {
