@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\doctorSchedulesController;
 use Illuminate\Http\Client\Request;
+use App\Http\Controllers\MedicalRecords;
 
 
 
@@ -66,15 +67,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'redirect.role'])->group(function () {
-    
-
-    //doctor dashboard
     Route::get('/doctor', [doctorSchedulesController::class, 'schedules'])->name('Doctor');
-
-    // Patient Dashboard
     Route::get('/patient', [AuthController::class, 'patient'])->name('Patient');
-
-    // Add more routes for other roles
 });
 
 
@@ -96,3 +90,14 @@ Route::get('/reject-appointment/{id}', [AppointmentController::class, 'reject'])
 Route::get('/doctor-schedule', [doctorSchedulesController::class, 'schedules'])->name('schedules');
 
 Route::post('/update-schedule', [doctorSchedulesController::class, 'updateschedule'])->name('update-schedule');
+
+//medical records routes :
+
+Route::get('/medicalrecord', function () {
+    return view('add-medical-records');
+})->name('medicalrecord');
+
+
+Route::get('/get-patients', [MedicalRecords::class, 'getPatients'])->name('get-patients');
+Route::post('/add-medical-record', [MedicalRecords::class, 'addMedicalRecord'])->name('add-medical-record');
+Route::post('/update-medical-record', [MedicalRecords::class, 'updateMedicalRecord'])->name('update-medical-record');
