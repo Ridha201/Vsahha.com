@@ -98,6 +98,7 @@
                             <td>
                                <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#customer{{$app->id}}" ><i class="fa fa-check"></i></button>
                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reject{{$app->id}}"><i class="fa fa-trash-o"></i> </button>
+                               <a href="{{ route('patient_record_redirect', ['id' => $app->user->id]) }}" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
                             </td>
                          </tr>
                         @endforeach

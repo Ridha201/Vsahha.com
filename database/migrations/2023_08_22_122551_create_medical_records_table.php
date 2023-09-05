@@ -16,10 +16,15 @@ class CreateMedicalRecordsTable extends Migration
         Schema::create('medical_records', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('patient_id')->unique();
-            $table->string('medical_condition');
-            $table->string('prescriptions');
-            $table->string('test_results');
+            $table->string('patient_id');
+            $table->string('doctor_id')->unique();
+            $table->string('blood_pressure')->nullable();
+            $table->string('sugar_level')->nullable();
+            $table->string('pulse_rate')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('height')->nullable();
+            $table->string('allergy_types')->nullable();
+            $table->string('notes')->nullable();
         });
     }
 

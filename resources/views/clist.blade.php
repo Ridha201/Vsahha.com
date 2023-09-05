@@ -223,6 +223,26 @@ background :#009688 !important ;
                                  <label class="control-label">Password:</label>
                                  <input type="password" placeholder="Password" class="form-control" name="password">
                               </div>
+
+                              <div class="col-md-6 form-group" id="phone" style="display: none;">
+                                 <label>Phone number </label>
+                                 <input type="text" class="form-control" name="phone">
+                              </div>
+         
+                              <div class="col-md-6 form-group" id="birthdate" style="display: none;">
+                                 <label>Birthdate </label>
+                                 <input type="date" class="form-control" name="birthdate">
+                              </div>
+         
+                              <div class="col-md-6 form-group" id="insurance_number" style="display: none;">
+                                 <label>Insurance Number </label>
+                                 <input type="text" class="form-control" name="insurance_number">
+                              </div>
+                              
+                              <div class="col-md-6 form-group" id="gender" style="display: none;">
+                                 <label>Gender </label>
+                                 <input type="text" class="form-control" name="gender">
+                              </div>
                               <div class="col-md-6 form-group" id="newRoleInput" style="display: none;">
                                  <label>New Role</label>
                                  <input type="text" class="form-control" name="new_role">
@@ -401,22 +421,46 @@ $(document).ready(function() {
 
 <script>
    document.addEventListener('DOMContentLoaded', function() {
-       const roleSelect = document.getElementById('roleSelect');
-       const newRoleInput = document.getElementById('newRoleInput');
-       const roleDescription = document.getElementById('role-description');
+    const roleSelect = document.getElementById('roleSelect');
+    const newRoleInput = document.getElementById('newRoleInput');
+    const roleDescription = document.getElementById('role-description');
+    const phone = document.getElementById('phone');
+    const birthdate = document.getElementById('birthdate');
+    const insuranceNumber = document.getElementById('insurance_number');
+    const gender = document.getElementById('gender');
 
-       roleSelect.addEventListener('change', function() {
-           if (roleSelect.value === 'New Role') {
-               newRoleInput.style.display = 'block';
-               roleDescription.style.display = 'block'; 
-               newRoleInput.querySelector('input').setAttribute('required', 'required');
-               roleDescriptionInput.setAttribute('required', 'required');
-           } else {
-               newRoleInput.style.display = 'none';
-               roleDescription.style.display = 'none'; 
-               newRoleInput.querySelector('input').removeAttribute('required');
-               roleDescriptionInput.removeAttribute('required');
-           }
-       });
-   });
+    function setDisplay(element, displayValue) {
+        element.style.display = displayValue;
+    }
+
+    roleSelect.addEventListener('change', function() {
+        setDisplay(newRoleInput, 'none');
+        setDisplay(roleDescription, 'none');
+        setDisplay(phone, 'none');
+        setDisplay(birthdate, 'none');
+        setDisplay(insuranceNumber, 'none');
+        setDisplay(gender, 'none');
+
+        if (roleSelect.value === 'New Role') {
+            setDisplay(newRoleInput, 'block');
+            setDisplay(roleDescription, 'block');
+            newRoleInput.querySelector('input').setAttribute('required', 'required');
+            roleDescription.querySelector('input').setAttribute('required', 'required');
+        } else if (roleSelect.value === 'Patient') {
+            setDisplay(phone, 'block');
+            setDisplay(birthdate, 'block');
+            setDisplay(insuranceNumber, 'block');
+            setDisplay(gender, 'block');
+            phone.querySelector('input').setAttribute('required', 'required');
+            birthdate.querySelector('input').setAttribute('required', 'required');
+            insuranceNumber.querySelector('input').setAttribute('required', 'required');
+            gender.querySelector('input').setAttribute('required', 'required');
+        } else if (roleSelect.value === 'Doctor') {
+            setDisplay(phone, 'block');
+            phone.querySelector('input').setAttribute('required', 'required');
+        } else {
+            
+        }
+    });
+});
 </script>

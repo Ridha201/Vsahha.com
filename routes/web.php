@@ -8,6 +8,9 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\doctorSchedulesController;
 use Illuminate\Http\Client\Request;
 use App\Http\Controllers\MedicalRecords;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+use App\Http\Controllers\PdfController;
 
 
 
@@ -78,7 +81,7 @@ Route::middleware(['auth', 'redirect.role'])->group(function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //appointment Routes : 
-Route::get('/test', [AppointmentController::class, 'appointments2'])->name('doctor-appointments');
+
 
 Route::get('/doctor-appointments', [AppointmentController::class, 'appointments'])->name('doctor-appointments');
 
@@ -97,7 +100,25 @@ Route::get('/medicalrecord', function () {
     return view('add-medical-records');
 })->name('medicalrecord');
 
+Route::get('/record', function () {
+    return view('record');
+})->name('record');
+
+
 
 Route::get('/get-patients', [MedicalRecords::class, 'getPatients'])->name('get-patients');
 Route::post('/add-medical-record', [MedicalRecords::class, 'addMedicalRecord'])->name('add-medical-record');
 Route::post('/update-medical-record', [MedicalRecords::class, 'updateMedicalRecord'])->name('update-medical-record');
+Route::post('/delete-medical-record', [MedicalRecords::class, 'deleteRecord'])->name('delete-medical-record');
+Route::get('/get-medical-history', [MedicalRecords::class, 'getMedicalHistory'])->name('get-medical-history');
+
+Route::post('/generate-pdf', [PdfController::class, 'generatePdf'])->name('generate.pdf');
+
+
+Route::get('/patients/{id}', function ($id) {
+    return redirect()->route('patient_record', ['id' => Crypt::encrypt($id)]);
+})->name('patient_record_redirect');
+Route::middleware(['checkDoctorRole'])->group(function () {
+    Route::get('/medical-record/{id}', [MedicalRecords::class, 'viewMedicalRecord'])
+        ->name('patient_record');
+});

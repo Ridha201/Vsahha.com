@@ -1,5 +1,6 @@
 @extends('theme')
 @section('content')
+
 <style>
    <style>.dataTables_filter {
       display: none;
@@ -338,7 +339,9 @@ function initDataTable(route) {
                 render: function(data, type, row) {
                     return '<div><button type="button" class="btn btn-add" data-toggle="modal" data-target="#customer1" data-user-id="' + data + '" ><i class="fa fa-plus"></i> Add </button>'+
                     '<button type="button" class="btn btn-add update-button" style="margin-left: 5px;" data-toggle="modal" data-target="#customer2" data-user-id="' + data + '" ><i class="fa fa-pencil"></i> Update </button>'+
-                    '<button type="button" class="btn btn-warning" style="margin-left: 5px;" ><i class="fa fa-eye" aria-hidden="true"></i> View</button></div>' ;
+                    '<a href="{{ route('patient_record_redirect', '') }}/' + data + '">Link to Medical Record</a>' +
+                    '</div>';
+                    
                      
                            
                 }

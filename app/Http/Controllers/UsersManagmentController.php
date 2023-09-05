@@ -34,6 +34,20 @@ class UsersManagmentController extends Controller{
     $customer->email = $request->email;
     $customer->password = bcrypt($request->password);
     $customer->role_id = $role->id;
+
+ 
+    if ($request->phone) {
+        $customer->phone = $request->phone;
+    }
+    if ($request->birthdate) {
+        $customer->birthdate = $request->birthdate;
+    }
+    if ($request->insurance_number) {
+        $customer->insurance_number = $request->insurance_number;
+    }
+    if ($request->gender) {
+        $customer->gender = $request->gender;
+    }
     $customer->save();
     
 
@@ -123,6 +137,19 @@ public function updateUser(Request $request)
         $role = Role::where('name','=', $request->role)->first();
     }
     $user->role_id = $role->id;
+    
+    if ($request->phone) {
+        $user->phone = $request->phone;
+    }
+    if ($request->birthdate) {
+        $user->birthdate = $request->birthdate;
+    }
+    if ($request->insurance_number) {
+        $user->insurance_number = $request->insurance_number;
+    }
+    if ($request->gender) {
+        $user->gender = $request->gender;
+    }
     $user->save();
 
     return redirect()->route('customerslist');

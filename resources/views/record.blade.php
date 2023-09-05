@@ -45,7 +45,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Main content -->
-   <section class="content" id="section-record">
+   <section class="content">
       <div class="row">
          <div class="col-sm-12">
             <div class="mailbox">
@@ -55,7 +55,8 @@
                         <div class="inbox-avatar">
                            <i class="fa fa-user-circle fa-lg"></i>
                            <div class="inbox-avatar-text hidden-xs hidden-sm">
-                            
+                              <div class="avatar-name">{{$patient->name}}</div>
+                              <div><small>Insurance Number : {{$patient->insurance_number}}</small></div>
                            </div>
                         </div>
                      </div>
@@ -66,7 +67,63 @@
                   <div class="row m-0">
                      <div class="col-sm-3 p-0 inbox-nav hidden-xs hidden-sm">
                         <div class="mailbox-sideber">
-                           
+                           <div class="profile-usermenu">
+                              <h6>Latest Global Informations</h6>
+                              <ul class="patient-info-list">
+                                 <li><strong><i class="fas fa-envelope"></i>Email :</strong> {{$patient->email}}</li>
+                                 <li><strong><i class="fas fa-phone-alt"></i>Phone Number :</strong> {{$patient->phone}}
+                                 </li>
+                                 <li><strong><i class="fas fa-calendar"></i>Birthdate :</strong> {{$patient->birthdate}}
+                                 </li>
+                                 <li><strong><i class="fas fa-mars"></i>Gender :</strong> {{$patient->gender}}</li>
+                                 @if(count($medicalRecords) != 0)
+                                 @if($latestMedicalRecord->allergy_types != null)
+                                 <li><strong><i class="fas fa-allergies"></i>Allergy Types :</strong>
+                                    {{$latestMedicalRecord->allergy_types}}</li>
+                                 @endif
+                                 @if($latestMedicalRecord->weight != null)
+                                 <li><strong><i class="fas fa-weight"></i>Weight :</strong>
+                                    {{$latestMedicalRecord->weight}}KG</li>
+                                 @endif
+                                 @if($latestMedicalRecord->height != null)
+                                 <li><strong><i class="fas fa-ruler-combined"></i>Height :</strong>
+                                    {{$latestMedicalRecord->height}}CM</li>
+                                 @endif
+
+                                 @php
+                                 $heightInMeters = $latestMedicalRecord->height / 100; // Convert height to meters
+                                 $bmi = $latestMedicalRecord->weight / ($heightInMeters * $heightInMeters);
+                                 @endphp
+
+                                 <li><strong><i class="fas fa-tachometer-alt"></i>BMI Level :</strong>
+                                    {{number_format($bmi, 1) }}</li>
+                                 @if($latestMedicalRecord->blood_pressure != null)
+                                 <li><strong><i class="fas fa-tint"></i>Blood Pressure :</strong>
+                                    {{$latestMedicalRecord->blood_pressure}}mm Hg</li>
+                                 @endif
+                                 @if($latestMedicalRecord->sugar_level != null)
+                                 <li><strong><i class="fas fa-chart-line"></i>Blood Sugar Levels (Glucose) :</strong>
+                                    {{$latestMedicalRecord->sugar_level}}mg/dL</li>
+                                 @endif
+                                 @if($latestMedicalRecord->pulse_rate != null)
+                                 <li><strong><i class="fas fa-heartbeat"></i>Pulse Rate :</strong>
+                                    {{$latestMedicalRecord->pulse_rate }}bmp</li>
+                                 @endif
+                                 @if($latestMedicalRecord->smoker != null)
+                                 <li><strong><i class="fa-solid fa-smoking"></i>Smoker :</strong>
+                                    {{$latestMedicalRecord->smoker}}</li>
+                                 @endif
+                                 @if($latestMedicalRecord->alcoholic != null)
+                                 <li><strong><i class="fa-solid fa-wine-bottle"></i>Alcoholic :</strong>
+                                    {{$latestMedicalRecord->alcoholic}}</li>
+                                 @endif
+
+                                 @if($latestMedicalRecord->drugs != null)
+                                 <li><strong><i class="fa-solid fa-syringe"></i>Drugs :</strong>
+                                    {{$latestMedicalRecord->drugs}}</li>
+                                 @endif
+                                 @endif
+
 
                               </ul>
                               <hr>
@@ -91,7 +148,77 @@
                                  </tr>
                               </thead>
                               <tbody>
-                                 
+                                 @if(count($medicalRecords) != 0)
+                                 @php
+                                 $userFound = false;
+                                 @endphp
+                                 @foreach ($medicalRecords as $medicalRecord)
+                                 <tr>
+                                    @if($medicalRecord->doctor_id == Auth::user()->id)
+                                    @php
+                                    $userFound = true;
+                                    @endphp
+                                    @endif
+                                    <td>Record {{ $medicalRecord->id }}</td>
+                                    <td>{{ $doctors_tab[$medicalRecord->doctor_id]->name }}</td>
+                                    <td>{{ $doctors_tab[$medicalRecord->doctor_id]->email }}</td>
+                                    <td> +21624259326</td>
+                                    <td>{{ $medicalRecord->updated_at }}</td>
+                                    <td>
+                                       @if($medicalRecord->doctor_id == Auth::user()->id)
+                                       <div class="hidden-xs hidden-sm btn-group">
+                                          <button type="button" class="btn btn-add" data-toggle="modal"
+                                             data-target="#customer2">
+                                             <span class="fa fa-pencil"></span>
+                                          </button>
+                                       </div>
+                                       <div class="hidden-xs hidden-sm btn-group">
+                                          <button type="button" class="btn btn-danger" data-toggle="modal"
+                                             data-target="#delete-modal">
+                                             <span class="fa fa-trash"></span>
+                                          </button>
+                                       </div>
+                                       <div class="hidden-xs hidden-sm btn-group">
+                                          <button type="button" class="btn btn-warning" data-toggle="modal"
+                                             data-target="#record-modal" data-medical-record="{{ $medicalRecord }}"
+                                             data-doctor-name="{{ $doctors_tab[$medicalRecord->doctor_id]->name }}"
+                                             data-patient-record="{{ $patient }}">
+
+                                             <span class="fa fa-eye"></span>
+                                          </button>
+                                       </div>
+                                       @else
+                                       <div class="hidden-xs hidden-sm btn-group">
+                                          <button type="button" class="btn btn-warning" data-toggle="modal"
+                                             data-target="#record-modal" data-medical-record="{{ $medicalRecord }}"
+                                             data-doctor-name="{{ $doctors_tab[$medicalRecord->doctor_id]->name }}"
+                                             data-patient-record="{{ $patient }}">
+
+                                             <span class="fa fa-eye"></span>
+                                          </button>
+                                       </div>
+                                       @endif
+                                    </td>
+                                 </tr>
+                                 @endforeach
+                                 @if($userFound == false)
+                                 <tr>
+                                    <td colspan="6"
+                                       style="text-align: center; font-weight:bold ;color:rgb(128, 128, 128)">Add A
+                                       Record For This Patient &nbsp <button type="button" class="btn btn-add"
+                                          data-toggle="modal" data-target="#customer1"><span
+                                             class="fa fa-plus"></span></button></td>
+                                 </tr>
+                                 @endif
+                                 @else
+                                 <tr>
+                                    <td colspan="6" style="text-align: center;">No Medical Records Found. Add A
+                                       Record For This Patient &nbsp <button type="button" class="btn btn-add"
+                                          data-toggle="modal" data-target="#customer1"><span
+                                             class="fa fa-plus"></span></button>
+                                    </td>
+                                 </tr>
+                                 @endif
                               </tbody>
                            </table>
                         </div>
@@ -117,7 +244,7 @@
                            action="{{ route('add-medical-record') }}">
                            @csrf
                            <fieldset>
-                              
+                              <input type="hidden" id="patient_id" name="patient_id" value="{{$id}}">
                               <input type="hidden" id="doctor_id" name="doctor_id" value="{{Auth::user()->id}}">
                               <div class="col-md-4 form-group" style="width: 34.8%;">
                                  <label>Weight</label>
@@ -239,7 +366,7 @@
          </div>
          <!-- /.modal-dialog -->
       </div>
-      <div id="modal-content-record">
+
       <div class="modal fade" id="record-modal" tabindex="-1" role="dialog" aria-labelledby="record-modal-label"
          aria-hidden="true">
          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -428,11 +555,10 @@
                </div>
                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button onclick="generatePDF()">Generate PDF</button>
+                  <button id="printPdfButton">Print PDF</button>
                </div>
             </div>
          </div>
-      </div>
       </div>
       <div class="modal fade" id="customer2" tabindex="-1" role="dialog" aria-hidden="true">
          <div class="modal-dialog">
@@ -448,7 +574,8 @@
                            action="{{ route('add-medical-record') }}">
                            @csrf
                            <fieldset>
-                              
+                              <input type="hidden" name="patient_id" value="{{$id}}">
+                              <input type="hidden" name="doctor_id" value="{{Auth::user()->id}}">
                               <div class="col-md-4 form-group" style="width: 34.8%;">
                                  <label>Weight</label>
                                  <input type="number" class="form-control" required name="weight">
@@ -581,7 +708,7 @@
                            <fieldset>
                               <div class="col-md-12 form-group user-form-group">
                                  <label class="control-label">Are you sure you want to delete this record ?</label>
-                               
+                                 <input type="hidden" id="patient_id" name="patient_id" value="{{$id}}">
                                  <input type="hidden" id="doctor_id" name="doctor_id" value="{{Auth::user()->id}}">
                                  <div class="pull-right">
                                     <button type="button" data-dismiss="modal" class="btn btn-danger btn-sm">NO</button>
@@ -608,19 +735,38 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <script>
-   function displayPDF() {
-       const modalContent = document.getElementById('record-modal').innerHTML;
-       const pdf = new jsPDF();
-       pdf.text(modalContent, 10, 10);
-       const pdfDataUri = pdf.output('datauristring');
-       document.getElementById('pdf-frame').src = pdfDataUri;
-   }
-   </script>
+$(document).ready(function() {
+    $(document).on('click', '#printPdfButton', function() {
+        const modalContent = document.getElementById('record-modal').innerHTML;
+        console.log('Modal Content:', modalContent);
+
+        $.ajaxSetup({
+             headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+         });
+
+        $.ajax({
+            url: '/generate-pdf',
+            type: 'POST',
+            data: {
+                modalContent: modalContent
+            },
+            success: function(response) {
+                console.log('PDF Generated:', response);
+            },
+            error: function(xhr) {
+                console.error('Error:', xhr.responseText);
+            }
+        });
+    });
+});
+</script>
+
+
 
 
 

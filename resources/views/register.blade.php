@@ -64,6 +64,12 @@
                                     <input type="password" value="" id="repeatpassword" class="form-control" name="password_confirmation">
                                     <span class="help-block small">Please repeat your pasword</span>
                                 </div>
+
+                                <div class="form-group col-lg-6" id="phone" style="display: none;">
+                                    <label>Phone number </label>
+                                    <input type="text" class="form-control" name="phone">
+                                 </div>
+            
                                 <div class="col-md-6 form-group">
                                     <label>Doctor Or Insurance Agency ? </label>
                                     <select class="form-control" name="role" id="roleSelect" >

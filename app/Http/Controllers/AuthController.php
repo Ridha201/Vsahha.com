@@ -56,6 +56,7 @@ public function register(Request $request)
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'phone' => 'required|string|max:255',
         ]);
 
         $role = Role::where('name', $request->role)->first();
@@ -63,12 +64,14 @@ public function register(Request $request)
         if (!$role) {
             return response()->json(['message' => 'Invalid role'], 400);
         }
+        
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => $role->id, 
+            'phone' => $request->phone,
         ]);
 
         Auth::login($user);

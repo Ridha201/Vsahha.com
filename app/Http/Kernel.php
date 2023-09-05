@@ -65,6 +65,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
         'redirect.role' => \App\Http\Middleware\RedirectBasedOnRole::class,
+        'checkDoctorRole' => \App\Http\Middleware\CheckDoctorRole::class,
+        
     ];
     
 }

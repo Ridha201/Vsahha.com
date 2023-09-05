@@ -6,6 +6,7 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>CRM Admin Panel</title>
       <!-- Favicon and touch icons -->
       <link rel="shortcut icon" href="assets/dist/img/ico/favicon.png" type="image/x-icon">
@@ -15,33 +16,35 @@
 
       <link href="https://cdn.datatables.net/1.13.6/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
       <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
       <!-- jquery-ui css -->
       {{-- <link href="assets/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"/> --}}
       <!-- Bootstrap -->
-      <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+      <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
       <!-- Bootstrap rtl -->
       <!--<link href="assets/bootstrap-rtl/bootstrap-rtl.min.css" rel="stylesheet" type="text/css"/>-->
       <!-- Lobipanel css -->
-      <link href="assets/plugins/lobipanel/lobipanel.min.css" rel="stylesheet" type="text/css"/>
+      <link href="/assets/plugins/lobipanel/lobipanel.min.css" rel="stylesheet" type="text/css"/>
       <!-- Pace css -->
-      <link href="assets/plugins/pace/flash.css" rel="stylesheet" type="text/css"/>
+      <link href="/assets/plugins/pace/flash.css" rel="stylesheet" type="text/css"/>
       <!-- Font Awesome -->
-      <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+      <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
       <!-- Pe-icon -->
-      <link href="assets/pe-icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet" type="text/css"/>
+      <link href="/assets/pe-icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet" type="text/css"/>
       <!-- Themify icons -->
-      <link href="assets/themify-icons/themify-icons.css" rel="stylesheet" type="text/css"/>
+      <link href="/assets/themify-icons/themify-icons.css" rel="stylesheet" type="text/css"/>
       <!-- End Global Mandatory Style
          =====================================================================-->
       <!-- Start Theme Layout Style
          =====================================================================-->
       <!-- Theme style -->
-      <link href="assets/dist/css/stylecrm.css" rel="stylesheet" type="text/css"/>
+      <link href="/assets/dist/css/stylecrm.css" rel="stylesheet" type="text/css"/>
       <!-- Theme style rtl -->
       <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
       <!-- End Theme Layout Style
          =====================================================================-->
    </head>
+   
    <body class="hold-transition sidebar-mini">
    <!--preloader-->
       {{-- <div id="preloader">
@@ -53,10 +56,10 @@
             <a href="index-2.html" class="logo">
                <!-- Logo -->
                <span class="logo-mini">
-               <img src="assets/dist/img/mini-logo.png" alt="">
+               <img src="/assets/dist/img/mini-logo.png" alt="">
                </span>
                <span class="logo-lg">
-               <img src="assets/dist/img/logo.png" alt="">
+               <img src="/assets/dist/img/logo.png" alt="">
                </span>
             </a>
             <!-- Header Navbar -->
@@ -90,7 +93,7 @@
                                     <!-- start Orders -->
                                     <a href="#" class="border-gray">
                                        <div class="pull-left">
-                                          <img src="assets/dist/img/basketball-jersey.png" class="img-thumbnail" alt="User Image">
+                                          <img src="/assets/dist/img/basketball-jersey.png" class="img-thumbnail" alt="User Image">
                                        </div>
                                        <h4>polo shirt</h4>
                                        <p><strong>total item:</strong> 21
@@ -100,7 +103,7 @@
                                  <li>
                                     <a href="#" class="border-gray">
                                        <div class="pull-left">
-                                          <img src="assets/dist/img/shirt.png" class="img-thumbnail" alt="User Image">
+                                          <img src="/assets/dist/img/shirt.png" class="img-thumbnail" alt="User Image">
                                        </div>
                                        <h4>Kits</h4>
                                        <p><strong>total item:</strong> 11
@@ -110,7 +113,7 @@
                                  <li>
                                     <a href="#" class="border-gray">
                                        <div class="pull-left">
-                                          <img src="assets/dist/img/football.png" class="img-thumbnail" alt="User Image">
+                                          <img src="/assets/dist/img/football.png" class="img-thumbnail" alt="User Image">
                                        </div>
                                        <h4>Football</h4>
                                        <p><strong>total item:</strong> 16
@@ -120,7 +123,7 @@
                                  <li class="nav-list">
                                     <a href="#" class="border-gray">
                                        <div class="pull-left">
-                                          <img src="assets/dist/img/shoe.png" class="img-thumbnail" alt="User Image">
+                                          <img src="/assets/dist/img/shoe.png" class="img-thumbnail" alt="User Image">
                                        </div>
                                        <h4>Sports sheos</h4>
                                        <p><strong>total item:</strong> 10
@@ -144,7 +147,7 @@
                                     <!-- start message -->
                                     <a href="#" class="border-gray">
                                        <div class="pull-left">
-                                          <img src="assets/dist/img/avatar.png" class="img-circle" alt="User Image">
+                                          <img src="/assets/dist/img/avatar.png" class="img-circle" alt="User Image">
                                        </div>
                                        <h4>Ronaldo</h4>
                                        <p>Please oreder 10 pices of kits..</p>
@@ -155,7 +158,7 @@
                                  <li>
                                     <a href="#" class="border-gray">
                                        <div class="pull-left">
-                                          <img src="assets/dist/img/avatar2.png" class="img-circle" alt="User Image">
+                                          <img src="/assets/dist/img/avatar2.png" class="img-circle" alt="User Image">
                                        </div>
                                        <h4>Leo messi</h4>
                                        <p>Please oreder 10 pices of Sheos..</p>
@@ -166,7 +169,7 @@
                                  <li>
                                     <a href="#" class="border-gray">
                                        <div class="pull-left" >
-                                          <img src="assets/dist/img/avatar3.png" class="img-circle" alt="User Image">
+                                          <img src="/assets/dist/img/avatar3.png" class="img-circle" alt="User Image">
                                        </div>
                                        <h4>Modric</h4>
                                        <p>Please oreder 6 pices of bats..</p>
@@ -177,7 +180,7 @@
                                  <li>
                                     <a href="#" class="border-gray">
                                        <div class="pull-left">
-                                          <img src="assets/dist/img/avatar4.png" class="img-circle" alt="User Image">
+                                          <img src="/assets/dist/img/avatar4.png" class="img-circle" alt="User Image">
                                        </div>
                                        <h4>Salman</h4>
                                        <p>Hello i want 4 uefa footballs</p>
@@ -189,7 +192,7 @@
                                  <li>
                                     <a href="#" class="border-gray">
                                        <div class="pull-left">
-                                          <img src="assets/dist/img/avatar5.png" class="img-circle" alt="User Image">
+                                          <img src="/assets/dist/img/avatar5.png" class="img-circle" alt="User Image">
                                        </div>
                                        <h4>Sergio Ramos</h4>
                                        <p>Hello i want 9 uefa footballs</p>
@@ -314,7 +317,7 @@
                      <!-- user -->
                      <li class="dropdown dropdown-user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="assets/dist/img/avatar5.png" class="img-circle" width="45" height="45" alt="user"></a>
+                        <img src="/assets/dist/img/avatar5.png" class="img-circle" width="45" height="45" alt="user"></a>
                         <ul class="dropdown-menu" >
                            <li>
                               <a href="profile.html">
@@ -694,23 +697,23 @@
       <!-- jquery-ui --> 
       {{-- <script src="assets/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script> --}}
       <!-- Bootstrap -->
-      <script src="assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+      <script src="/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
       <!-- lobipanel -->
-      <script src="assets/plugins/lobipanel/lobipanel.min.js" type="text/javascript"></script>
+      <script src="/assets/plugins/lobipanel/lobipanel.min.js" type="text/javascript"></script>
       <!-- Pace js -->
-      <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+      <script src="/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
       <!-- SlimScroll -->
       {{-- <script src="assets/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script> --}}
       <!-- FastClick -->
-      <script src="assets/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
+      <script src="/assets/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
       <!-- CRMadmin frame -->
-      <script src="assets/dist/js/custom.js" type="text/javascript"></script>
+      <script src="/assets/dist/js/custom.js" type="text/javascript"></script>
       <!-- End Core Plugins
          =====================================================================-->
       <!-- Start Theme label Script
          =====================================================================-->
       <!-- Dashboard js -->
-      <script src="assets/dist/js/dashboard.js" type="text/javascript"></script>
+      <script src="/assets/dist/js/dashboard.js" type="text/javascript"></script>
       <!-- End Theme label Script
          =====================================================================-->
          <script>
@@ -718,6 +721,7 @@
                 $('#exemple').DataTable();
             });
         </script>
+        
    </body>
 
 <!-- Mirrored from thememinister.com/crm/add-customer.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 10 Aug 2023 11:55:35 GMT -->
