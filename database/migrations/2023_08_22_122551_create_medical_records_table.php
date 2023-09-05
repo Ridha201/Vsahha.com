@@ -24,7 +24,10 @@ class CreateMedicalRecordsTable extends Migration
             $table->string('weight')->nullable();
             $table->string('height')->nullable();
             $table->string('allergy_types')->nullable();
-            $table->string('notes')->nullable();
+            $table->string('smoker')->nullable();
+            $table->string('alcoholic')->nullable();
+            $table->string('drugs')->nullable();
+            
         });
     }
 

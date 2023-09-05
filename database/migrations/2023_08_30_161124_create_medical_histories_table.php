@@ -20,6 +20,7 @@ class CreateMedicalHistoriesTable extends Migration
             $table->string('medical_condition');
             $table->string('test_results');
             $table->string('prescription');
+            $table->string('notes')->nullable();
         });
     }
 
