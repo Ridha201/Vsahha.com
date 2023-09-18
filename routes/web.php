@@ -122,3 +122,5 @@ Route::middleware(['checkDoctorRole'])->group(function () {
     Route::get('/medical-record/{id}', [MedicalRecords::class, 'viewMedicalRecord'])
         ->name('patient_record');
 });
+
+Route::post('csv-add', [UsersManagmentController::class, 'importPatients'])->name('addUsersWithCsv');

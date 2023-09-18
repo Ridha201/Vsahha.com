@@ -36,7 +36,19 @@
                      <a class="btn btn-add " href="{{route('customerslist')}}">
                         <i class="fa fa-list"></i> Users List </a>
                   </div>
+                  <form class="form-control" action="{{route('addUsersWithCsv')}}" method="POST" enctype="multipart/form-data">
+                     @csrf
+
+                        <input type="file" class="search form-control" placeholder="What you looking for?" name="csv_file">
+                        <button type="submit" class="btn btn-success">Import</button>
+                       
+                     
+
+                  </form>
+                 
+                  
                </div>
+               
                <div class="panel-body">
                   <form class="col-sm-6" method="POST" action="{{ route('add-customer') }}" id="addCustomerForm">
                      @csrf
