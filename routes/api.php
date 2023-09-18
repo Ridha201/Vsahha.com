@@ -31,3 +31,8 @@ Route::post('/register2', [AuthController::class, 'register'])->name('register2'
 Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
 
 Route::post("add-appointement",[AppointmentController::class,'store'])->name("app.store");
+
+Route::get("/disponibleappointment/{id}",[AppointmentController::class,'disponibleappointment'])->name("disponibleappointment");
+
+
+

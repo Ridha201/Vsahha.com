@@ -10,19 +10,18 @@ class doctorSchedulesController extends Controller
 {
     public function schedules(){
 
-        $confirmed=appointment::where("status","=","confirmed")->count();
-    $pending=appointment::where("status","=","pending")->count();
+    $booked=appointment::where("status","=","booked")->count();
     $rejected=appointment::where("status","=","rejected")->count();
 
 
     $confirmedPatients = Appointment::where('doctor_id', auth::user()->id)
-        ->where('status', 'confirmed')
+        ->where('status', 'booked')
         ->distinct('patient_id')
         ->count();
 
         $schedules=DoctorSchedule::where("doctor_id","=",auth::user()->id)->get();
 
-        return view("doctors.doctor-schedule",compact('schedules',"confirmed","pending","rejected","confirmedPatients"));
+        return view("doctors.doctor-schedule",compact('schedules',"booked","rejected","confirmedPatients"));
     }
 
     public function updateschedule(Request $req)

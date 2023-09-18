@@ -22,7 +22,7 @@ class SendReminderEmails extends Command
     public function handle()
     {
         $reminders = Appointment::where('appointment_time', '<=', now()->addHours(24))->where("rappel","=","0")
-        ->where("status","=","confirmed")
+        ->where("status","=","booked")
         ->get();
         foreach ($reminders as $appointment) {
             $data = [
