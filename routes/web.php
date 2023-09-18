@@ -85,7 +85,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/doctor-appointments', [AppointmentController::class, 'appointments'])->name('doctor-appointments');
 
-Route::get('/confirm-appointment/{id}', [AppointmentController::class, 'confirm'])->name('confirm-appointment');
 
 
 Route::get('/reject-appointment/{id}', [AppointmentController::class, 'reject'])->name('reject-appointment');
@@ -103,6 +102,10 @@ Route::get('/medicalrecord', function () {
 Route::get('/record', function () {
     return view('record');
 })->name('record');
+
+Route::get('/change_show', [AppointmentController::class, 'change_show'])->name('change_show');
+
+Route::get('/show', [AppointmentController::class, 'show'])->name('show');
 
 
 

@@ -7,6 +7,7 @@
 
 <div class="content">
     <div class="row">
+        <div class="col-md-1"></div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
            <div id="cardbox1">
               <div class="statistic-box">
@@ -25,27 +26,15 @@
               <div class="statistic-box">
                 <i class="fa fa-files-o fa-3x"></i>
                 <div class="counter-number pull-right">
-                    <span class="count-number">{{$pending}}</span> 
+                    <span class="count-number">{{$booked}}</span> 
                     <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
                     </span>
                  </div>
-                 <h3>  Pending Appointment</h3>
+                 <h3>  Booked Appointment</h3>
               </div>
            </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-           <div id="cardbox3">
-              <div class="statistic-box">
-                <i class="fa fa-files-o fa-3x"></i>
-                <div class="counter-number pull-right">
-                    <span class="count-number">{{$confirmed}}</span> 
-                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
-                    </span>
-                 </div>
-                 <h3>  ConfirmedAppointment</h3>
-              </div>
-           </div>
-        </div>
+        
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
            <div id="cardbox4">
               <div class="statistic-box">
@@ -59,6 +48,8 @@
               </div>
            </div>
         </div>
+        <div class="col-md-2"></div>
+
      </div>
 
     <section class="content-header">
@@ -103,10 +94,10 @@
                                             </td>
                                             <td class="">{{ $sch->day }}</td>
                                             <td class="text-center">
-                                                <input name="time_from_{{ $sch->id }}" type="time" value="{{ $sch->time_from }}" class="form-control">
+                                                <input name="time_from_{{ $sch->id }}" type="time" value="{{ $sch->time_from }}" class="form-control" >
                                             </td>
                                             <td class="text-center">
-                                                <input name="time_to_{{ $sch->id }}" type="time" value="{{ $sch->time_to }}" class="form-control">
+                                                <input name="time_to_{{ $sch->id }}" type="time" value="{{ $sch->time_to }}" class="form-control" >
                                             </td>
                                         </tr>
                                         @endforeach

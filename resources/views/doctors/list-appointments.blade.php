@@ -85,18 +85,16 @@
                  
                           
                               <td class="appointment-status-{{$app->id}}">
-                                 @if($app->status=="confirmed")
+                                 @if($app->status=="booked")
                                 <span class="label-custom label label-default"> {{$app->status}} </span>
+                               
                                 @elseif($app->status=="rejected")
                                 <span class="label-danger label label-default"> {{$app->status}} </span>
-                                @elseif($app->status=="pending")
-                                <span class="label-warning label label-default"> {{$app->status}} </span>
                                   @endif
                  
                               </td>
                  
                             <td>
-                               <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#customer{{$app->id}}" ><i class="fa fa-check"></i></button>
                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reject{{$app->id}}"><i class="fa fa-trash-o"></i> </button>
                                <a href="{{ route('patient_record_redirect', ['id' => $app->user->id]) }}" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
                             </td>
@@ -145,43 +143,7 @@
        @endforeach
 
 
-       @foreach($appointments as $app)
-
-
-       <div class="modal fade" id="customer{{$app->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-           <div class="modal-content">
-              <div class="modal-header modal-header-primary">
-                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                 <h3><i class="fa fa-user m-r-5"></i> Confirm Appointment</h3>
-              </div>
-              <div class="modal-body">
-                 <div class="row">
-                    <div class="col-md-12">
-                       <form class="form-horizontal">
-                          <fieldset>
-                             <div class="col-md-12 form-group user-form-group">
-                                <label class="control-label">Confirm Appointment</label>
-                                <div class="pull-right">
-                                   <button type="button" class="btn btn-danger btn-sm">NO</button>
-                                   <a class="btn btn-add btn-sm confirm-button" data-appid="{{$app->id}}" data-dismiss="modal">YES</a>
-                                </div>
-                             </div>
-                          </fieldset>
-                       </form>
-                    </div>
-                 </div>
-              </div>
-              <div class="modal-footer">
-                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-              </div>
-           </div>
-           <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-     </div>
-
-     @endforeach
+       
        <!-- /.modal -->
     </section>
     <!-- /.content -->
@@ -193,40 +155,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-<script>
-   $(document).ready(function() {
-      $('.confirm-button').on('click', function() {
-          var appId = $(this).data('appid');
-          var status = $('.appointment-status-' + appId); 
-          confirmAppointment(appId, status);
-      });
-   
-      function confirmAppointment(appId, status) {
-          var confirmed = '<span class="label-custom label label-default">confirmed</span>';
-   
-          $.ajax({
-    type: 'GET',
-    url: '{{ route("confirm-appointment", ["id" => "__ID__"]) }}'.replace('__ID__', appId),
-    success: function(response) {
-        console.log('Appointment confirmed successfully.');
-        status.empty();
-        status.html(confirmed);
-        
-        toastr.options = {
-            "positionClass": "toast-top-center",
-            "progressBar": true, 
-            "timeOut": 1000 
-        };
-        toastr.success('Appointment confirmed successfully.');
-    },
-    error: function(xhr, status, error) {
-        console.error('Error confirming appointment:', error);
-    }
-});
 
-      }
-   });
-</script>
 <script>
    $(document).ready(function() {
       $('.reject-button').on('click', function() {

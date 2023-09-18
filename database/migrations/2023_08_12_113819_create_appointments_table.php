@@ -27,7 +27,7 @@ class CreateAppointmentsTable extends Migration
             $table->dateTime('appointment_time', $presicion = 0);
 
 
-            $table->enum("status",["confirmed","rejected","pending"])->default("pending");
+            $table->enum("status",["booked","rejected"])->default("booked");
             
             $table->timestamps();
         });
